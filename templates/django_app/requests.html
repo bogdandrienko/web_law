@@ -8,7 +8,9 @@
 <body>
 
 <div class="container px-4 py-5" id="featured-3">
-    <h2 class="pb-2 border-bottom">Все активные запросы на юридическую помощь:</h2>
+    <h2 class="pb-2 border-bottom">Все активные запросы на юридическую помощь:
+        <a href="{% url 'post_request' %}" class="btn btn-md btn-outline-success">отправить запрос</a>
+    </h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 
         {% for req in select_orm %}
@@ -21,7 +23,7 @@
 
 
             <p>{{ req.description|slice:":20" }}...</p>
-            <a href="{% url 'request' req.id %}" class="icon-link">
+            <a href="{% url 'get_request' req.id %}" class="icon-link">
               детально
               <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
             </a>

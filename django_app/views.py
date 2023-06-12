@@ -1,16 +1,19 @@
+import datetime
+
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from django_app import models
 
 
 def home(request):
-    #
     data = [{"id": x, "name": f"Алема {x}"} for x in range(1, 100 + 1)]
     return render(request, "django_app/home.html", context={"peoples": data})
 
 
 # todo REQUESTS ###############################################
-def get_requests(request):
+def get_requests(request):  # todo READ (many) - GET
     # вернуть все запросы
 
     # todo выборка
@@ -37,7 +40,7 @@ def get_requests(request):
     SELECT id, title, description, price, is_success, datetime FROM Requests
     ORDER BY datetime DESC
     """
-    # select3_orm = models.Requests.objects.all().order_by("-datetime")
+    # select3_orm = models.Requests.objects.order_by("-datetime")
     # todo сортировка
 
     select_orm = models.Requests.objects.all()
@@ -55,7 +58,7 @@ def get_requests(request):
     return render(request, "django_app/requests.html", context={"select_orm": select_orm})
 
 
-def get_request(request, pk):
+def get_request(request, pk):  # todo READ (one) - GET
     # id(1) - зарезервирована
     # todo выборка
     select1_raw = """
@@ -73,16 +76,36 @@ def get_request(request, pk):
     return render(request, "django_app/request.html", context={"req": select1_orm})
 
 
-def post_request(request):
-    return HttpResponse("register")
+def post_request(request):  # todo CREATE - POST
+    if request.method == "GET":
+        return render(request, "django_app/send_request.html")
+    elif request.method == "POST":
+        title = str(request.POST.get("title"))
+        description = str(request.POST.get("description"))
+        price = float(request.POST.get("price"))
+
+        print(title, description, price)
+
+        # todo вставка
+        insert1_raw = """
+        INSERT INTO Requests (id, title, description, price, is_success, datetime) 
+        VALUES (1, 'ЭЦП', 'Помогите выписать ЭЦП для юр. лица', '15000.0', 'false', '2023-06-09 20:00')
+        """
+        insert1_orm = models.Requests.objects.create(
+            title=title, description=description, price=price,
+            client="Аноним"
+        )
+        return redirect(reverse("home"))
+    else:
+        return HttpResponse("error")
 
 
 def delete_requests(request):
-    return HttpResponse("register")
+    return HttpResponse("delete_requests")
 
 
 def update_request(request):
-    return HttpResponse("register")
+    return HttpResponse("update_request")
 
 
 # todo REQUESTS ###############################################

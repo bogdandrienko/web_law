@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+# todo ВСЕ ФАЙЛЫ 'models.py' - ЭТО БАЗА ДАННЫХ
+
 table_for_clients = """
 create table Clients
 (
@@ -28,7 +30,7 @@ name string (VARChar500)
 """
 
 
-class Requests(models.Model):
+class Requests(models.Model):  # todo ТАБЛИЦА
     # id = models.BigAutoField() - default
     #
 
