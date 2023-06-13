@@ -7,7 +7,9 @@ def docs_home(request):
 
 
 def docs_list(request):
-    return HttpResponse("docs_list")
+    docs = [{"id": x, "name": f"Документ {x}"} for x in range(1, 1000)]
+    print(docs)
+    return render(request, "django_documents/docs_list.html", context={"docs": docs})
 
 
 def docs_detail(request):

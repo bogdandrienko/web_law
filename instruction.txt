@@ -60,3 +60,31 @@ URL -> VIEW(def) -> MODEL(ORM) -> TEMPLATE (HTMl)
 MVT - MODEL VIEW TEMPLATE
 MVC - MODEL VIEW CONTROLLER
 MVC(T)
+
+
+#########################################################
+
+# Идея
+Страница отображащая весь массив документов: поиск, фильтрация, сортировка, рейтинг
+
+# Ссылка
+# https://egov.kz/cms/ru
+path('list/', views.docs_list, name="docs_list"),
+
+# Функция (вью / контроллер)
+def docs_list(request):
+    return render(request, "django_documents/docs_list.html", context={})
+
+# HTML (шаблоном / jinja)
+<!DOCTYPE html>
+...
+</html>
+
+
+
+# Есть excel-файл с данными, нужно вывести их в новом проекте в формате
+# https://getbootstrap.com/docs/5.0/examples/album/
+
+
+# python -m venv env
+
