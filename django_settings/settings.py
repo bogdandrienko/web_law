@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'django_app',
     'django_documents',
+    'forum',
 ]
 
 MIDDLEWARE = [

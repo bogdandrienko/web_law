@@ -25,6 +25,7 @@ urlpatterns = [
 
     #    prefix
     path('docs/', include("django_documents.urls")),
+    path('', include("forum.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
